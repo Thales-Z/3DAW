@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Incluir Aluno</title>
+    <script>
+        function EnviarAluno() {
+            let matricula = document.getElementById("matricula").value;
+            let nome = document.getElementById("nome").value;
+            let email = document.getElementById("email").value;
+
+            // 1. Chama a função de validação antes de prosseguir
+            let erros = ValidaForm(matricula, nome, email);
+            
+            // 2. Se houver mensagens de erro, exibe na tela e interrompe o envio
+            if (erros !== "") {
+                document.getElementById("msg").innerHTML = "<span style='color: red;'>" + erros + "</span>";
+                return; 
+            }
+
+            // 3. Limpa a área de mensagens caso a validação passe
+            document.getElementById("msg").innerHTML = "<span style='color: blue;'>Enviando requisição...</span>";
+
+            let xmlhttp = new XMLHttpRequest();
+            console.log("1");
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log("Chegou a resposta OK: " + this.responseText);
+                    console.log("2");
+                    // Exibe a resposta do PHP
+                    document.getElementById("msg").innerHTML = "<span style='color: green;'>" + this.responseText + "</span>";
+                } else if (this.readyState < 4) {
+                    console.log("3: " + this.readyState);
+                } else {
+                    console.log("Requisicao falhou: " + this.status);
+                    document.getElementById("msg").innerHTML = "<span style='color: red;'>Erro na requisição! Status: " + this.status + "</span>";
+                }
+            }
+            console.log("4");
+            xmlhttp.open("GET", "http://localhost/3daw/IncluirAluno.php?matricula=" + matricula +
+                            "&nome=" + nome + "&email=" + email);
+            xmlhttp.send();
+            console.log("enviei form");
+            console.log("5");
+        }
+
+        function ValidaForm(pmatricula, pnome, pemail) {
+            let msg = "";
+
+            // Valida se a matrícula está vazia
+            if (pmatricula.trim() === "") {
+                msg += "A matrícula não foi preenchida. <br>";
+            }
+
+            // Valida se o nome está vazio
+            if (pnome.trim() === "") {
+                msg += "O nome não foi preenchido. <br>";
+            }
+
+            // Expressão regular para validação de e-mail
+            // Verifica padrão: texto + @ + texto + . + texto
+            const padraoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Valida se o email está vazio ou se não passa no teste da RegEx
+            if (pemail.trim() === "") {
+                msg += "O e-mail não foi preenchido. <br>";
+            } else if (!padraoEmail.test(pemail)) {
+                msg += "O formato do e-mail é inválido (ex: aluno@escola.com). <br>";
+            }
+
+            return msg;
+        }
+    </script>
+</head>
+<body>
+    <h1>Inserir Aluno</h1>
+    <br>
+    <a href="ex52_IncluirAlunoJS.html">Inserir Aluno</a><br>
+    <a href="ex52_alterarAluno.html">Alterar Aluno</a><br>
+    <a href="ex52_listarAlunos.html">Listar Alunos</a><br>
+    <a href="ex52_excluirAluno.html">Excluir Aluno</a><br>
+    <a href="ex52_detalheAluno.html">Detalhe de Aluno</a><br>
+    <br>
+    <form action="" method="GET" name="formAluno" id="formAluno">
+        Matricula: <input type="text" name="matricula" id="matricula" required> <br>
+        Nome: <input type="text" name="nome" id="nome"> <br>
+        E-mail: <input type="text" name="email" id="email"> <br>
+        <br><br>
+        <!-- Importante: O type button impede que a página recarregue ao clicar, deixando o JS assumir -->
+        <input type="button" value="Inserir" onclick="EnviarAluno();">
+    </form>
+    
+    <!-- Parágrafo onde as mensagens de erro ou sucesso aparecerão -->
+    <p id="msg"></p>
+    <br>
+</body>
+</html>

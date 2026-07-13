@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Pergunta</title>
+</head>
+<body>
+    <h2>Alterar Pergunta</h2>
+
+    <form id="formAlterar">
+        <input type="hidden" id="perguntaId">
+        <input type="hidden" id="perguntaTipo">
+
+        <b>Texto da Pergunta:</b><br>
+        <textarea id="pergunta" rows="3" cols="50" required></textarea><br><br>
+
+        <div id="blocoMultipla" style="display: none;">
+            <b>Opções de Resposta:</b><br>
+            <input type="radio" name="correta" id="corretaA" value="A"> A) <input type="text" id="opA"><br>
+            <input type="radio" name="correta" id="corretaB" value="B"> B) <input type="text" id="opB"><br>
+            <input type="radio" name="correta" id="corretaC" value="C"> C) <input type="text" id="opC"><br>
+            <input type="radio" name="correta" id="corretaD" value="D"> D) <input type="text" id="opD"><br><br>
+        </div>
+
+        <div id="blocoTexto" style="display: none;">
+            <b>Resposta Esperada:</b><br>
+            <textarea id="resposta" rows="3" cols="50"></textarea><br><br>
+        </div>
+
+        <input type="submit" value="Salvar Alterações">
+    </form>
+
+    <br>
+    <a href="index.html">Voltar ao Menu Principal</a>
+
+    <script src="js/alterar_pergunta.js"></script>
+</body>
+</html>

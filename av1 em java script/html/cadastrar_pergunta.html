@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Pergunta</title>
+</head>
+<body>
+    <h2>Crie sua Pergunta</h2>
+
+    Selecione o Tipo de Pergunta:<br>
+    <select id="tipoPergunta">
+        <option value="multipla">Múltipla Escolha</option>
+        <option value="texto">Texto Livre</option>
+    </select>
+    <br><br>
+
+    <form id="formPergunta">
+        <b>Texto da Pergunta:</b><br>
+        <textarea id="pergunta" rows="3" cols="50" required></textarea><br><br>
+        
+        <div id="blocoMultipla">
+            <b>Opções de Resposta:</b><br>
+            <input type="radio" name="correta" value="A" checked> A) <input type="text" id="opA"><br>
+            <input type="radio" name="correta" value="B"> B) <input type="text" id="opB"><br>
+            <input type="radio" name="correta" value="C"> C) <input type="text" id="opC"><br>
+            <input type="radio" name="correta" value="D"> D) <input type="text" id="opD"><br><br>
+            <small><i>* Marque a bolinha ao lado da resposta correta.</i></small><br><br>
+        </div>
+
+        <div id="blocoTexto" style="display: none;">
+            <b>Resposta Esperada / Critério de Avaliação:</b><br>
+            <textarea id="resposta" rows="3" cols="50"></textarea><br><br>
+        </div>
+
+        <input type="submit" value="Salvar Pergunta">
+    </form>
+
+    <br>
+    <a href="index.html">Voltar ao Menu Principal</a>
+
+    <script src="js/cadastrar_pergunta.js"></script>
+</body>
+</html>
